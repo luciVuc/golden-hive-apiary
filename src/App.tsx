@@ -50,9 +50,9 @@ function AppContent() {
       <Layout siteContent={siteContent}>
         <HeroSection content={siteContent} onNavigate={handleNavigate} />
         <AboutSection content={siteContent} />
-        <ProcessSection steps={processSteps} />
-        <ProductsSection products={products} />
-        <TestimonialsSection testimonials={testimonials} />
+        <ProcessSection steps={processSteps} content={siteContent} />
+        <ProductsSection products={products} content={siteContent} />
+        <TestimonialsSection testimonials={testimonials} content={siteContent} />
         <ContactSection content={siteContent} />
       </Layout>
       <CartDrawer />
@@ -78,19 +78,19 @@ function AppContent() {
                   <span className="text-3xl">🎉</span>
                 </div>
                 <h2 className="font-heading text-2xl font-bold text-dark-900 mb-4">
-                  Order Confirmed!
+                  {siteContent.orderConfirmed}
                 </h2>
                 <p className="font-body text-dark-600 mb-2">
-                  Thank you for your order. A confirmation email will be sent shortly.
+                  {siteContent.orderConfirmationMessage}
                 </p>
                 <p className="font-body text-sm text-dark-500 mb-6">
-                  Questions? Contact us at {siteContent.email}
+                  {siteContent.questionsContact} {siteContent.email}
                 </p>
                 <button
                   onClick={() => setShowSuccessModal(false)}
                   className="px-6 py-2 bg-primary-500 text-white rounded-xl font-body font-medium hover:bg-primary-600 transition-colors"
                 >
-                  Continue Shopping
+                  {siteContent.continueShopping}
                 </button>
               </div>
             </motion.div>

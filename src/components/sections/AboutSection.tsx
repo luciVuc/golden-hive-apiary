@@ -9,9 +9,9 @@ interface IAboutSectionProps {
 
 export const AboutSection = ({ content }: IAboutSectionProps) => {
   const stats = [
-    { icon: Award, label: '15+ Years', description: 'of Experience' },
-    { icon: Leaf, label: '100%', description: 'Raw & Natural' },
-    { icon: Heart, label: 'Vermont', description: 'Proud' },
+    { icon: Award, label: content.yearsExperience, description: content.yearsExperienceLabel },
+    { icon: Leaf, label: content.rawNatural, description: content.rawNaturalLabel },
+    { icon: Heart, label: content.californiaProud, description: content.californiaProudLabel },
   ]
 
   return (
@@ -61,10 +61,10 @@ export const AboutSection = ({ content }: IAboutSectionProps) => {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <p className="font-heading text-2xl font-bold text-primary-600">
-                Since 2009
+                {content.sinceYear}
               </p>
               <p className="font-body text-sm text-dark-500">
-                Sustaining beekeeping tradition
+                {content.sinceYearLabel}
               </p>
             </motion.div>
           </motion.div>

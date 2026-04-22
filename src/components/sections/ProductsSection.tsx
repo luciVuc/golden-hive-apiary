@@ -2,21 +2,21 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SectionHeader } from '../ui/SectionHeader'
 import { ProductCard } from '../shop/ProductCard'
-import type { IProduct, EProductCategory } from '../../types'
-import { CATEGORIES } from '../../utils/constants'
+import type { IProduct, EProductCategory, ISiteContent } from '../../types'
 
 interface IProductsSectionProps {
   products: IProduct[]
+  content: ISiteContent
 }
 
-export const ProductsSection = ({ products }: IProductsSectionProps) => {
+export const ProductsSection = ({ products, content }: IProductsSectionProps) => {
   const [activeCategory, setActiveCategory] = useState<EProductCategory | 'ALL'>('ALL')
 
   const filteredProducts = activeCategory === 'ALL'
     ? products
     : products.filter(p => p.category === activeCategory)
 
-  const categories = CATEGORIES.map(cat => ({
+  const categories = content.categories.map(cat => ({
     ...cat,
     value: cat.id === 'ALL' ? 'ALL' : cat.id,
   }))
@@ -25,8 +25,8 @@ export const ProductsSection = ({ products }: IProductsSectionProps) => {
     <section id="products" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          title="Our Products"
-          subtitle="Small-batch, raw honey and bee products from our California apiaries"
+          title={content.productsTitle}
+          subtitle={content.productsSubtitle}
         />
 
         <div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -59,7 +59,7 @@ export const ProductsSection = ({ products }: IProductsSectionProps) => {
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
             <p className="font-body text-dark-500">
-              No products found in this category.
+              {content.noProductsFound}
             </p>
           </div>
         )}

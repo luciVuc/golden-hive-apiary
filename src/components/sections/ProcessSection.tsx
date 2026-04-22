@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
 import { Home, Flower2, Wind, Shield, Award, ChevronRight } from 'lucide-react'
 import { SectionHeader } from '../ui/SectionHeader'
-import type { IProcessStep } from '../../types'
+import type { IProcessStep, ISiteContent } from '../../types'
 
 interface IProcessSectionProps {
   steps: IProcessStep[]
+  content: ISiteContent
 }
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -15,13 +16,13 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Award,
 }
 
-export const ProcessSection = ({ steps }: IProcessSectionProps) => {
+export const ProcessSection = ({ steps, content }: IProcessSectionProps) => {
   return (
     <section id="process" className="py-20 bg-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          title="From Hive to Your Table"
-          subtitle="Follow our journey from the first flower to your kitchen shelf"
+          title={content.processTitle}
+          subtitle={content.processSubtitle}
         />
 
         <div className="relative">

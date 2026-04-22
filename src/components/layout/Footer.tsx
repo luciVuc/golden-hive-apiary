@@ -8,13 +8,10 @@ interface IFooterProps {
 export const Footer = ({ content }: IFooterProps) => {
   const currentYear = new Date().getFullYear()
 
-  const navLinks = [
-    { label: 'About', href: '#about' },
-    { label: 'Our Process', href: '#process' },
-    { label: 'Shop', href: '#products' },
-    { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Contact', href: '#contact' },
-  ]
+  const navLinks = content.navLinks.slice(1).map(link => ({
+    label: link.label,
+    href: `#${link.id}`,
+  }))
 
   return (
     <footer className="bg-dark-900 text-white">
@@ -114,7 +111,7 @@ export const Footer = ({ content }: IFooterProps) => {
             © {currentYear} {content.businessName}. All rights reserved.
           </p>
           <p className="font-body text-center text-dark-500 mt-2">
-            Built with ❤️ in Vermont
+            {content.footerTagline}
           </p>
         </div>
       </div>

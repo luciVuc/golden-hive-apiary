@@ -80,7 +80,7 @@ export const ContactSection = ({ content }: IContactSectionProps) => {
     return (
       <section id="contact" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader title="Contact Us" />
+<SectionHeader title={content.contactTitle} subtitle={content.contactSubtitle} />
 
           <motion.div
             className="max-w-lg mx-auto text-center py-12"

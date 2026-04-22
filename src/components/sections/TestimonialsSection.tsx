@@ -1,20 +1,21 @@
 import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
 import { SectionHeader } from '../ui/SectionHeader'
-import type { ITestimonial } from '../../types'
+import type { ITestimonial, ISiteContent } from '../../types'
 import { formatDate } from '../../utils/formatters'
 
 interface ITestimonialsSectionProps {
   testimonials: ITestimonial[]
+  content: ISiteContent
 }
 
-export const TestimonialsSection = ({ testimonials }: ITestimonialsSectionProps) => {
+export const TestimonialsSection = ({ testimonials, content }: ITestimonialsSectionProps) => {
   return (
     <section id="testimonials" className="py-20 bg-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          title="What Our Customers Say"
-          subtitle="Join our community of honey lovers"
+          title={content.testimonialsTitle}
+          subtitle={content.testimonialsSubtitle}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

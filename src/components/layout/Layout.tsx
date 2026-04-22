@@ -18,7 +18,7 @@ export const Layout = ({ children, siteContent }: ILayoutProps) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar onNavigate={handleNavigate} />
+      <Navbar content={siteContent} onNavigate={handleNavigate} />
       <main className="flex-grow">
         {children}
       </main>

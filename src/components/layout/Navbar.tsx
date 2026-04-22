@@ -1,37 +1,22 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingCart, Menu, X } from 'lucide-react'
 import { useCart } from '../../hooks/useCart'
 import { useScrollSpy } from '../../hooks/useScrollSpy'
-import { SECTION_IDS } from '../../utils/constants'
-
-const navLinks = [
-  { id: SECTION_IDS.HOME, label: 'Home' },
-  { id: SECTION_IDS.ABOUT, label: 'About' },
-  { id: SECTION_IDS.PROCESS, label: 'Our Process' },
-  { id: SECTION_IDS.PRODUCTS, label: 'Shop' },
-  { id: SECTION_IDS.TESTIMONIALS, label: 'Testimonials' },
-  { id: SECTION_IDS.CONTACT, label: 'Contact' },
-]
+import type { ISiteContent } from '../../types'
 
 interface INavbarProps {
+  content: ISiteContent
   onNavigate: (id: string) => void
 }
 
-export const Navbar = ({ onNavigate }: INavbarProps) => {
+export const Navbar = ({ content, onNavigate }: INavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { totalItems, open } = useCart()
 
-  const sections = navLinks.map(link => ({
-    id: link.id,
-    ref: useRef<HTMLElement>(null),
-  }))
-
-  const activeSection = useScrollSpy(sections.filter(s => s.id !== 'home').map(s => ({
-    ...s,
-    ref: useRef<HTMLElement>(null),
-  })), 100)
+  const navLinkIds = content.navLinks.map(link => link.id)
+  const activeSection = useScrollSpy(navLinkIds.filter(id => id !== 'home'), 100)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,17 +45,17 @@ export const Navbar = ({ onNavigate }: INavbarProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           <button
-            onClick={() => onNavigate(SECTION_IDS.HOME)}
+            onClick={() => onNavigate('home')}
             className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg"
           >
             <span className="text-3xl">🐝</span>
             <span className="font-heading text-xl font-bold text-dark-900 hidden sm:block">
-              Golden Hive
+              {content.businessName}
             </span>
           </button>
 
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.slice(0, -1).map(link => (
+            {content.navLinks.slice(0, -1).map(link => (
               <button
                 key={link.id}
                 onClick={() => onNavigate(link.id)}
@@ -129,7 +114,7 @@ export const Navbar = ({ onNavigate }: INavbarProps) => {
             transition={{ duration: 0.3 }}
           >
             <div className="px-4 py-4 space-y-2">
-              {navLinks.map(link => (
+              {content.navLinks.map(link => (
                 <button
                   key={link.id}
                   onClick={() => handleNavClick(link.id)}

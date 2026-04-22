@@ -1,31 +1,30 @@
 import { useState, useEffect, useCallback } from 'react'
 
-interface Section {
-  id: string
-  ref: React.RefObject<HTMLElement | null>
-}
-
-export const useScrollSpy = (sections: Section[], offset: number = 100): string => {
-  const [activeSection, setActiveSection] = useState<string>(sections[0]?.id || '')
+export const useScrollSpy = (sectionIds: string[], offset: number = 100): string => {
+  const [activeSection, setActiveSection] = useState<string>(sectionIds[0] || '')
 
   const handleScroll = useCallback(() => {
     const scrollPosition = window.scrollY + offset
 
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const section = sections[i]
-      if (section.ref.current) {
-        const { offsetTop } = section.ref.current
+    for (let i = sectionIds.length - 1; i >= 0; i--) {
+      const id = sectionIds[i]
+      const element = document.getElementById(id)
+      if (element) {
+        const { offsetTop } = element
         if (scrollPosition >= offsetTop) {
-          setActiveSection(section.id)
+          setActiveSection(id)
           return
         }
       }
     }
 
-    if (sections[0]?.ref.current && scrollPosition < offset) {
-      setActiveSection(sections[0].id)
+    if (sectionIds[0]) {
+      const firstElement = document.getElementById(sectionIds[0])
+      if (firstElement && scrollPosition < offset) {
+        setActiveSection(sectionIds[0])
+      }
     }
-  }, [sections, offset])
+  }, [sectionIds, offset])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })

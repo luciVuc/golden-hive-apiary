@@ -46,10 +46,20 @@ export interface IProcessStep {
   icon: string
 }
 
+export interface ICategory {
+  id: string
+  label: string
+}
+
 export interface ISocialLinks {
   instagram?: string
   facebook?: string
   etsy?: string
+}
+
+export interface INavLink {
+  id: string
+  label: string
 }
 
 export interface ISiteContent {
@@ -59,6 +69,30 @@ export interface ISiteContent {
   heroSubheadline: string
   aboutTitle: string
   aboutText: string[]
+  processTitle: string
+  processSubtitle: string
+  productsTitle: string
+  productsSubtitle: string
+  testimonialsTitle: string
+  testimonialsSubtitle: string
+  contactTitle: string
+  contactSubtitle: string
+  noProductsFound: string
+  footerTagline: string
+  yearsExperience: string
+  yearsExperienceLabel: string
+  rawNatural: string
+  rawNaturalLabel: string
+  californiaProud: string
+  californiaProudLabel: string
+  sinceYear: string
+  sinceYearLabel: string
+  navLinks: INavLink[]
+  orderConfirmed: string
+  orderConfirmationMessage: string
+  questionsContact: string
+  continueShopping: string
+  categories: ICategory[]
   email: string
   phone: string
   location: string
