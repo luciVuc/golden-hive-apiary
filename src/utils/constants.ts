@@ -7,11 +7,11 @@ export const GITHUB_PAGES_BASE = '/cs-regus-apiary/'
 export const PRODUCTS_PER_PAGE = 12
 
 export const CATEGORIES = [
-  { id: 'all', label: 'All Products' },
-  { id: 'honey', label: 'Honey' },
-  { id: 'beeswax', label: 'Beeswax' },
-  { id: 'gifts', label: 'Gift Sets' },
-  { id: 'subscriptions', label: 'Subscriptions' },
+  { id: 'ALL', label: 'All Products' },
+  { id: 'HONEY', label: 'Honey' },
+  { id: 'BEESWAX', label: 'Beeswax' },
+  { id: 'GIFTS', label: 'Gift Sets' },
+  { id: 'SUBSCRIPTIONS', label: 'Subscriptions' },
 ] as const
 
 export const SECTION_IDS = {

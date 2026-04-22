@@ -104,7 +104,14 @@ Generate the following folder and file structure exactly:
 ## DATA MODELS — DEFINE THESE TYPES FIRST IN src/types/index.ts
 
 ```ts
-ProductCategory = 'honey' | 'beeswax' | 'gifts' | 'subscriptions'
+enum EProductCategory {
+  HONEY = 'HONEY',
+  BEESWAX = 'BEESWAX',
+  GIFTS = 'GIFTS',
+  SUBSCRIPTIONS = 'SUBSCRIPTIONS'
+}
+
+type ProductCategory = keyof typeof EProductCategory;
 
 Product {
   id: string

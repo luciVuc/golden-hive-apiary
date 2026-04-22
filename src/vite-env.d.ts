@@ -1,6 +1,13 @@
 /// <reference types="vite/client" />
 
-export type EProductCategory = 'honey' | 'beeswax' | 'gifts' | 'subscriptions'
+export enum EProductCategory {
+  HONEY = 'HONEY',
+  BEESWAX = 'BEESWAX',
+  GIFTS = 'GIFTS',
+  SUBSCRIPTIONS = 'SUBSCRIPTIONS'
+}
+
+export type ProductCategory = keyof typeof EProductCategory;
 
 export interface IProduct {
   id: string

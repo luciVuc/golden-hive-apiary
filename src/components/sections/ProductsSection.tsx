@@ -10,15 +10,15 @@ interface IProductsSectionProps {
 }
 
 export const ProductsSection = ({ products }: IProductsSectionProps) => {
-  const [activeCategory, setActiveCategory] = useState<EProductCategory | 'all'>('all')
+  const [activeCategory, setActiveCategory] = useState<EProductCategory | 'ALL'>('ALL')
 
-  const filteredProducts = activeCategory === 'all'
+  const filteredProducts = activeCategory === 'ALL'
     ? products
     : products.filter(p => p.category === activeCategory)
 
   const categories = CATEGORIES.map(cat => ({
     ...cat,
-    value: cat.id === 'all' ? 'all' : cat.id,
+    value: cat.id === 'ALL' ? 'ALL' : cat.id,
   }))
 
   return (
@@ -26,14 +26,14 @@ export const ProductsSection = ({ products }: IProductsSectionProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Our Products"
-          subtitle="Small-batch, raw honey and bee products from our Vermont apiaries"
+          subtitle="Small-batch, raw honey and bee products from our California apiaries"
         />
 
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map(category => (
             <button
               key={category.id}
-              onClick={() => setActiveCategory(category.value as EProductCategory | 'all')}
+              onClick={() => setActiveCategory(category.value as EProductCategory | 'ALL')}
               className={`px-4 py-2 rounded-full font-body text-sm font-medium transition-all duration-200 ${
                 activeCategory === category.value
                   ? 'bg-primary-500 text-white shadow-amber'
