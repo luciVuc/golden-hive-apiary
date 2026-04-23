@@ -1,6 +1,6 @@
 [
   {
-    "id": "honey-wildflower",
+    "id": "prod_UO303XfKyCAtqZ",
     "name": "Wildflower Raw Honey",
     "slug": "wildflower-raw-honey",
     "description": "A beautiful blend of nectar from Bay Area's wild meadows.",
@@ -16,7 +16,7 @@
     "tags": ["raw", "unfiltered", "local"]
   },
   {
-    "id": "honey-clover",
+    "id": "prod_UO318ICtMi0zxd",
     "name": "Clover Blossom Honey",
     "slug": "clover-blossom-honey",
     "description": "Light, sweet, and exceptionally smooth.",
@@ -32,7 +32,7 @@
     "tags": ["raw", "smooth", "classic"]
   },
   {
-    "id": "honey-buckwheat",
+    "id": "prod_UO32OqZElnIDiU",
     "name": "Buckwheat Dark Honey",
     "slug": "buckwheat-dark-honey",
     "description": "Rich, robust, and malty — honey at its most bold.",
@@ -48,7 +48,7 @@
     "tags": ["raw", "dark", "robust"]
   },
   {
-    "id": "beeswax-lip-balm",
+    "id": "prod_UO35lvWDea7spN",
     "name": "Beeswax Lip Balm Set",
     "slug": "beeswax-lip-balm",
     "description": "Natural lip care with raw Bay Area beeswax.",
@@ -64,7 +64,7 @@
     "tags": ["beeswax", "natural", "gift"]
   },
   {
-    "id": "beeswax-candle",
+    "id": "prod_UO36JO83axyMY9",
     "name": "Hand-Rolled Beeswax Candles",
     "slug": "beeswax-candles",
     "description": "Pure beeswax candles, hand-rolled in our workshop.",
@@ -80,7 +80,7 @@
     "tags": ["beeswax", "handmade", "decor"]
   },
   {
-    "id": "gift-set-junior",
+    "id": "prod_UO36TpDHrZ6mU5",
     "name": "Honey Lover's Gift Set",
     "slug": "honey-lovers-gift-set",
     "description": "A perfect introduction to Golden Hive favorites.",
@@ -96,7 +96,7 @@
     "tags": ["gift", "set", "featured"]
   },
   {
-    "id": "gift-set-premium",
+    "id": "prod_UO37P4qDjU2t13",
     "name": "Premium Hive Collection",
     "slug": "premium-hive-collection",
     "description": "Our finest selection in an elegant wooden box.",
@@ -112,7 +112,7 @@
     "tags": ["gift", "premium", "luxury"]
   },
   {
-    "id": "subscription-monthly",
+    "id": "prod_UO376lFrkmINHo",
     "name": "Monthly Honey Club",
     "slug": "monthly-honey-club",
     "description": "Fresh honey delivered to your door every month.",

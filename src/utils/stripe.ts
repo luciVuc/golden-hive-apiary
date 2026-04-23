@@ -20,7 +20,14 @@ export interface LineItem {
 }
 
 export const createLineItems = (lineItems: LineItem[]): LineItem[] => {
-  return lineItems.filter(item => item.price && item.price !== 'price_REPLACE_WITH_STRIPE_ID' && item.quantity > 0)
+  return lineItems.filter(item => {
+    const priceId = item.price
+    const hasValidPrice = priceId && 
+      !priceId.includes('REPLACE') && 
+      !priceId.includes('_REPLACE') &&
+      priceId.startsWith('price_')
+    return hasValidPrice && item.quantity > 0
+  })
 }
 
 export const getSuccessUrl = (): string => {
