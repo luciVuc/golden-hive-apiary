@@ -1,5 +1,0 @@
-- generic [active] [ref=e1]:
-  - text: The server is configured with a public base URL of /cs-regus-apiary/ - did you mean to visit
-  - link /cs-regus-apiary/ [ref=e2] [cursor=pointer]:
-    - /url: /cs-regus-apiary/
-  - text: instead?

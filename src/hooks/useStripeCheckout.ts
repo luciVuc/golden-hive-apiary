@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react'
-import { getStripe, createLineItems, getSuccessUrl, getCancelUrl } from '../utils/stripe'
 import type { ICartItem } from '../types'
 
 interface IUseStripeCheckoutReturn {
@@ -27,36 +26,53 @@ export const useStripeCheckout = (): IUseStripeCheckoutReturn => {
     setError(null)
 
     try {
-      const stripe = await getStripe()
+      const validItems = items.filter(item => {
+        const priceId = item.product.stripePaymentLinkId || item.product.stripePriceId
+        return priceId && 
+          !priceId.includes('REPLACE') && 
+          !priceId.includes('_REPLACE') &&
+          (priceId.startsWith('price_') || priceId.startsWith('test_') || priceId.startsWith('pl_')) &&
+          item.quantity > 0
+      })
 
-      if (!stripe) {
-        setError('Stripe is not configured. Please add your Stripe publishable key to .env')
-        setIsProcessing(false)
-        return
-      }
-
-      const lineItems = createLineItems(
-        items.map(item => ({
-          price: item.product.stripePriceId,
-          quantity: item.quantity,
-        }))
-      )
-
-      if (lineItems.length === 0) {
+      if (validItems.length === 0) {
         setError('No valid products for checkout. Please contact support.')
         setIsProcessing(false)
         return
       }
 
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        lineItems,
-        successUrl: getSuccessUrl(),
-        cancelUrl: getCancelUrl(),
-        mode: 'payment',
-      })
-
-      if (stripeError) {
-        setError(stripeError.message || 'Payment failed. Please try again.')
+if (validItems.length === 1) {
+        const item = validItems[0]
+        const quantity = item.quantity
+        const paymentLinkId = item.product.stripePaymentLinkId || item.product.stripePriceId
+        const isPaymentLink = paymentLinkId.startsWith('test_') || paymentLinkId.startsWith('pl_')
+        
+        if (isPaymentLink) {
+          window.location.href = `https://buy.stripe.com/${paymentLinkId}?quantity=${quantity}`
+        } else {
+          setError('Invalid Stripe configuration. Please contact the merchant.')
+          setIsProcessing(false)
+          return
+        }
+      } else {
+        const totalItems = validItems.reduce((sum, item) => sum + item.quantity, 0)
+        if (totalItems <= 10) {
+          const firstItem = validItems[0]
+          const paymentLinkId = firstItem.product.stripePaymentLinkId || firstItem.product.stripePriceId
+          const isPaymentLink = paymentLinkId.startsWith('test_') || paymentLinkId.startsWith('pl_')
+          
+          if (isPaymentLink) {
+            window.location.href = `https://buy.stripe.com/${paymentLinkId}?quantity=${totalItems}`
+          } else {
+            setError('Invalid Stripe configuration. Please contact the merchant.')
+            setIsProcessing(false)
+            return
+          }
+        } else {
+          setError('For bulk orders, please contact us at hello@csregusapiary.com to place your order.')
+          setIsProcessing(false)
+          return
+        }
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')

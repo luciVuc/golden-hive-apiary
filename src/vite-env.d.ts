@@ -17,6 +17,7 @@ export interface IProduct {
   longDescription: string
   price: number
   stripePriceId: string
+  stripePaymentLinkId?: string
   category: EProductCategory
   imageUrls: string[]
   thumbnailUrls: string[]
