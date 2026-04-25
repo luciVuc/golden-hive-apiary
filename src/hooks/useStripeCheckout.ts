@@ -1,11 +1,15 @@
 import { useState, useCallback } from 'react'
-import type { ICartItem } from '../types'
+import type { IProduct, ICartItem } from '../types'
 
 interface IUseStripeCheckoutReturn {
   isProcessing: boolean
   error: string | null
   checkout: (items: ICartItem[]) => Promise<void>
   clearError: () => void
+}
+
+const isSubscriptionProduct = (product: IProduct): boolean => {
+  return product.category === 'SUBSCRIPTIONS'; // || product.category === 'Subscriptions'
 }
 
 export const useStripeCheckout = (): IUseStripeCheckoutReturn => {
@@ -26,12 +30,39 @@ export const useStripeCheckout = (): IUseStripeCheckoutReturn => {
     setError(null)
 
     try {
+      const hasSubscriptions = items.some(item => isSubscriptionProduct(item.product))
+      const hasRegularProducts = items.some(item => !isSubscriptionProduct(item.product))
+
+      if (hasSubscriptions && hasRegularProducts) {
+        setError('Cannot mix subscription and regular products. Please checkout separately.')
+        setIsProcessing(false)
+        return
+      }
+
+      if (hasSubscriptions) {
+        const paymentLinkIds = items
+          .filter(item => isSubscriptionProduct(item.product))
+          .map(item => item.product.stripePaymentLinkId)
+          .filter((id): id is string => !!id && !id.includes('REPLACE'))
+
+        if (paymentLinkIds.length === 0) {
+          setError('No valid subscription for checkout. Please contact support.')
+          setIsProcessing(false)
+          return
+        }
+
+        const paymentLinkId = paymentLinkIds[0]
+        const url = `https://buy.stripe.com/${paymentLinkId}?prefilled_email=`
+        window.location.href = url
+        return
+      }
+
       const validItems = items.filter(item => {
-        const priceId = item.product.stripePaymentLinkId || item.product.stripePriceId
+        const priceId = item.product.stripePriceId
         return priceId && 
           !priceId.includes('REPLACE') && 
           !priceId.includes('_REPLACE') &&
-          (priceId.startsWith('price_') || priceId.startsWith('test_') || priceId.startsWith('pl_')) &&
+          priceId.startsWith('price_') &&
           item.quantity > 0
       })
 
@@ -41,39 +72,32 @@ export const useStripeCheckout = (): IUseStripeCheckoutReturn => {
         return
       }
 
-if (validItems.length === 1) {
-        const item = validItems[0]
-        const quantity = item.quantity
-        const paymentLinkId = item.product.stripePaymentLinkId || item.product.stripePriceId
-        const isPaymentLink = paymentLinkId.startsWith('test_') || paymentLinkId.startsWith('pl_')
-        
-        if (isPaymentLink) {
-          window.location.href = `https://buy.stripe.com/${paymentLinkId}?quantity=${quantity}`
-        } else {
-          setError('Invalid Stripe configuration. Please contact the merchant.')
-          setIsProcessing(false)
-          return
-        }
-      } else {
-        const totalItems = validItems.reduce((sum, item) => sum + item.quantity, 0)
-        if (totalItems <= 10) {
-          const firstItem = validItems[0]
-          const paymentLinkId = firstItem.product.stripePaymentLinkId || firstItem.product.stripePriceId
-          const isPaymentLink = paymentLinkId.startsWith('test_') || paymentLinkId.startsWith('pl_')
-          
-          if (isPaymentLink) {
-            window.location.href = `https://buy.stripe.com/${paymentLinkId}?quantity=${totalItems}`
-          } else {
-            setError('Invalid Stripe configuration. Please contact the merchant.')
-            setIsProcessing(false)
-            return
-          }
-        } else {
-          setError('For bulk orders, please contact us at hello@csregusapiary.com to place your order.')
-          setIsProcessing(false)
-          return
-        }
+      const lineItems = validItems.map(item => ({
+        price: item.product.stripePriceId,
+        quantity: item.quantity,
+      }))
+
+      const response = await fetch(import.meta.env.VITE_STRIPE_WORKER_URL + '/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          lineItems,
+          successUrl: `${window.location.origin}/#/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: `${window.location.origin}/#/?session=cancelled`,
+        }),
+      })
+
+      const { url, error: serverError } = await response.json()
+
+      if (serverError) {
+        setError(serverError || 'Payment failed. Please try again.')
+        setIsProcessing(false)
+        return
       }
+
+      window.location.href = url
     } catch (err) {
       setError('An unexpected error occurred. Please try again.')
       console.error('Checkout error:', err)
