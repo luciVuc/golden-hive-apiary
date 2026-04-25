@@ -29,14 +29,19 @@ export const ProductCard = ({ product }: IProductCardProps) => {
       whileHover={{ y: -5 }}
     >
       <div className="aspect-[4/3] bg-primary-50 relative overflow-hidden">
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="text-center">
-            <span className="text-5xl">🍯</span>
-            <p className="font-body text-primary-700 text-sm mt-2">
-              [{product.name}]
-            </p>
+        {product.imageUrls && product.imageUrls[0] ? (
+          <img
+            src={product.imageUrls[0]}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="text-center">
+              <span className="text-5xl">🍯</span>
+            </div>
           </div>
-        </div>
+        )}
         {product.featured && (
           <Badge variant="featured" className="absolute top-3 left-3">
             Featured
