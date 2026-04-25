@@ -1,18 +1,18 @@
-import { motion, AnimatePresence } from 'framer-motion'
-import { X, ShoppingBag } from 'lucide-react'
-import { Button } from '../ui/Button'
-import { CartItem } from './CartItem'
-import { useCart } from '../../hooks/useCart'
-import { useStripeCheckout } from '../../hooks/useStripeCheckout'
-import { formatPrice } from '../../utils/formatters'
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ShoppingBag } from "lucide-react";
+import { Button } from "../ui/Button";
+import { CartItem } from "./CartItem";
+import { useCart } from "../../hooks/useCart";
+import { useStripeCheckout } from "../../hooks/useStripeCheckout";
+import { formatPrice } from "../../utils/formatters";
 
 export const CartDrawer = () => {
-  const { items, totalItems, subtotal, isCartOpen, close } = useCart()
-  const { checkout, isProcessing, error } = useStripeCheckout()
+  const { items, totalItems, subtotal, isCartOpen, close } = useCart();
+  const { checkout, isProcessing, error } = useStripeCheckout();
 
   const handleCheckout = async () => {
-    await checkout(items)
-  }
+    await checkout(items);
+  };
 
   return (
     <AnimatePresence>
@@ -28,10 +28,10 @@ export const CartDrawer = () => {
 
           <motion.div
             className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-xl z-50 flex flex-col"
-            initial={{ x: '100%' }}
+            initial={{ x: "100%" }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
           >
             <div className="flex items-center justify-between p-4 border-b border-dark-100">
               <div className="flex items-center space-x-2">
@@ -68,7 +68,7 @@ export const CartDrawer = () => {
                 </div>
               ) : (
                 <AnimatePresence>
-                  {items.map(item => (
+                  {items.map((item) => (
                     <CartItem key={item.product.id} item={item} />
                   ))}
                 </AnimatePresence>
@@ -90,7 +90,8 @@ export const CartDrawer = () => {
 
                 <div className="p-3 bg-amber-50 rounded-lg">
                   <p className="font-body text-xs text-amber-800">
-                    Note: Stripe is in TEST MODE. Replace your Stripe keys in .env for production.
+                    Note: Stripe is in TEST MODE. Replace your Stripe keys in
+                    .env for production.
                   </p>
                 </div>
 
@@ -103,11 +104,7 @@ export const CartDrawer = () => {
                   >
                     Proceed to Checkout
                   </Button>
-                  <Button
-                    onClick={close}
-                    variant="outline"
-                    className="w-full"
-                  >
+                  <Button onClick={close} variant="outline" className="w-full">
                     Continue Shopping
                   </Button>
                 </div>
@@ -117,5 +114,5 @@ export const CartDrawer = () => {
         </>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};

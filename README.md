@@ -36,22 +36,26 @@ A beautiful React + TypeScript e-commerce website and marketing site for a small
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/cs-regus-apiary.git
 cd cs-regus-apiary
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Copy the environment file:
+
 ```bash
 cp .env.example .env
 ```
 
 4. Start development server:
+
 ```bash
 npm run dev
 ```
@@ -79,6 +83,7 @@ To enable Stripe checkout, follow these steps:
 3. For each product, copy the Price ID (starts with `price_...`)
 
 4. Update `src/data/products.json` with your Stripe Price IDs:
+
 ```json
 {
   "stripePriceId": "price_1234567890abcdef"
@@ -88,6 +93,7 @@ To enable Stripe checkout, follow these steps:
 5. Get your Stripe Publishable Key from [Stripe Dashboard → Developers → API Keys](https://dashboard.stripe.com/test/apikeys)
 
 6. Add to your `.env` file:
+
 ```
 VITE_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxxx
 ```
@@ -101,6 +107,7 @@ To enable the contact form:
 2. Create a new form and get your Form ID
 
 3. Add to your `.env` file:
+
 ```
 VITE_FORMSPREE_FORM_ID=your_form_id
 ```
@@ -108,6 +115,7 @@ VITE_FORMSPREE_FORM_ID=your_form_id
 ### Site URL
 
 Update the site URL in your `.env` file for proper redirect URLs:
+
 ```
 VITE_SITE_URL=https://yourusername.github.io/cs-regus-apiary
 ```
@@ -141,6 +149,7 @@ cs-regus-apiary/
 ### Adding/Editing Products
 
 Edit `src/data/products.json`:
+
 ```json
 {
   "id": "unique-product-id",
@@ -148,9 +157,9 @@ Edit `src/data/products.json`:
   "slug": "product-slug",
   "description": "Short description",
   "longDescription": "Detailed description",
-  "price": 1200,           // In cents ($12.00)
+  "price": 1200, // In cents ($12.00)
   "stripePriceId": "price_...",
-  "category": "honey",      // honey | beeswax | gifts | subscriptions
+  "category": "honey", // honey | beeswax | gifts | subscriptions
   "imageUrls": ["/images/products/product.jpg"],
   "thumbnailUrls": ["/images/products/product-thumb.jpg"],
   "inStock": true,
@@ -167,6 +176,7 @@ Edit `src/data/site.json` to update business name, tagline, contact info, etc.
 ### Adding Testimonials
 
 Edit `src/data/testimonials.json`:
+
 ```json
 {
   "id": "testimonial-6",
@@ -189,6 +199,7 @@ Edit `src/data/process.json` to update the honey-making process description.
 The project is configured for GitHub Pages deployment using GitHub Actions.
 
 1. Push to main branch:
+
 ```bash
 git add .
 git commit -m "Initial commit"

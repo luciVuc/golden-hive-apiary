@@ -1,23 +1,23 @@
-import { motion } from 'framer-motion'
-import { ShoppingCart } from 'lucide-react'
-import { Button } from '../ui/Button'
-import { Badge } from '../ui/Badge'
-import { useCart } from '../../hooks/useCart'
-import { formatPrice } from '../../utils/formatters'
-import type { IProduct } from '../../types'
+import { motion } from "framer-motion";
+import { ShoppingCart } from "lucide-react";
+import { Button } from "../ui/Button";
+import { Badge } from "../ui/Badge";
+import { useCart } from "../../hooks/useCart";
+import { formatPrice } from "../../utils/formatters";
+import type { IProduct } from "../../types";
 
 interface IProductCardProps {
-  product: IProduct
+  product: IProduct;
 }
 
 export const ProductCard = ({ product }: IProductCardProps) => {
-  const { add } = useCart()
+  const { add } = useCart();
 
   const handleAddToCart = () => {
     if (product.inStock) {
-      add(product)
+      add(product);
     }
-  }
+  };
 
   return (
     <motion.div
@@ -54,7 +54,9 @@ export const ProductCard = ({ product }: IProductCardProps) => {
           <h3 className="font-heading text-lg font-semibold text-dark-900">
             {product.name}
           </h3>
-          <span className="font-body text-sm text-dark-500">{product.weight}</span>
+          <span className="font-body text-sm text-dark-500">
+            {product.weight}
+          </span>
         </div>
 
         <p className="font-body text-sm text-dark-600 mb-4 line-clamp-2">
@@ -73,10 +75,10 @@ export const ProductCard = ({ product }: IProductCardProps) => {
             className="flex items-center"
           >
             <ShoppingCart className="w-4 h-4 mr-1" />
-            {product.inStock ? 'Add' : 'Unavailable'}
+            {product.inStock ? "Add" : "Unavailable"}
           </Button>
         </div>
       </div>
     </motion.div>
-  )
-}
+  );
+};

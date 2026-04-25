@@ -1,18 +1,30 @@
-import { motion } from 'framer-motion'
-import { Award, Leaf, Heart } from 'lucide-react'
-import { SectionHeader } from '../ui/SectionHeader'
-import type { ISiteContent } from '../../types'
+import { motion } from "framer-motion";
+import { Award, Leaf, Heart } from "lucide-react";
+import { SectionHeader } from "../ui/SectionHeader";
+import type { ISiteContent } from "../../types";
 
 interface IAboutSectionProps {
-  content: ISiteContent
+  content: ISiteContent;
 }
 
 export const AboutSection = ({ content }: IAboutSectionProps) => {
   const stats = [
-    { icon: Award, label: content.yearsExperience, description: content.yearsExperienceLabel },
-    { icon: Leaf, label: content.rawNatural, description: content.rawNaturalLabel },
-    { icon: Heart, label: content.californiaProud, description: content.californiaProudLabel },
-  ]
+    {
+      icon: Award,
+      label: content.yearsExperience,
+      description: content.yearsExperienceLabel,
+    },
+    {
+      icon: Leaf,
+      label: content.rawNatural,
+      description: content.rawNaturalLabel,
+    },
+    {
+      icon: Heart,
+      label: content.californiaProud,
+      description: content.californiaProudLabel,
+    },
+  ];
 
   return (
     <section id="about" className="py-20 bg-white">
@@ -28,7 +40,10 @@ export const AboutSection = ({ content }: IAboutSectionProps) => {
 
             <div className="space-y-6">
               {content.aboutText.map((paragraph, index) => (
-                <p key={index} className="font-body text-lg text-dark-600 leading-relaxed">
+                <p
+                  key={index}
+                  className="font-body text-lg text-dark-600 leading-relaxed"
+                >
                   {paragraph}
                 </p>
               ))}
@@ -96,5 +111,5 @@ export const AboutSection = ({ content }: IAboutSectionProps) => {
         </motion.div>
       </div>
     </section>
-  )
-}
+  );
+};

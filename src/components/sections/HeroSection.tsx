@@ -1,14 +1,14 @@
-import { motion } from 'framer-motion'
-import { ArrowRight, Heart } from 'lucide-react'
-import { Button } from '../ui/Button'
-import type { ISiteContent } from '../../types'
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowRight, Heart } from "lucide-react";
+import { Button } from "../ui/Button";
+import type { ISiteContent } from "../../types";
 
 interface IHeroSectionProps {
-  content: ISiteContent
-  onNavigate: (id: string) => void
+  content: ISiteContent;
 }
 
-export const HeroSection = ({ content, onNavigate }: IHeroSectionProps) => {
+export const HeroSection = ({ content }: IHeroSectionProps) => {
   return (
     <section
       id="home"
@@ -24,7 +24,7 @@ export const HeroSection = ({ content, onNavigate }: IHeroSectionProps) => {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: 'easeInOut',
+            ease: "easeInOut",
           }}
         />
         <motion.div
@@ -36,7 +36,7 @@ export const HeroSection = ({ content, onNavigate }: IHeroSectionProps) => {
           transition={{
             duration: 15,
             repeat: Infinity,
-            ease: 'easeInOut',
+            ease: "easeInOut",
           }}
         />
       </div>
@@ -68,21 +68,17 @@ export const HeroSection = ({ content, onNavigate }: IHeroSectionProps) => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              onClick={() => onNavigate('products')}
-              size="lg"
-              className="group"
-            >
-              Shop Our Honey
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              onClick={() => onNavigate('about')}
-              variant="outline"
-              size="lg"
-            >
-              Our Story
-            </Button>
+            <Link to="/products">
+              <Button size="lg" className="group">
+                Shop Our Honey
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button variant="outline" size="lg">
+                Our Story
+              </Button>
+            </Link>
           </div>
         </motion.div>
       </div>
@@ -101,5 +97,5 @@ export const HeroSection = ({ content, onNavigate }: IHeroSectionProps) => {
         </div>
       </motion.div>
     </section>
-  )
-}
+  );
+};

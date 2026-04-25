@@ -1,59 +1,83 @@
-import { useEffect, useState } from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import { motion, AnimatePresence } from 'framer-motion'
-import { store } from './store'
-import { Layout } from './components/layout/Layout'
-import { CartDrawer } from './components/shop/CartDrawer'
-import { HeroSection } from './components/sections/HeroSection'
-import { AboutSection } from './components/sections/AboutSection'
-import { ProcessSection } from './components/sections/ProcessSection'
-import { ProductsSection } from './components/sections/ProductsSection'
-import { TestimonialsSection } from './components/sections/TestimonialsSection'
-import { ContactSection } from './components/sections/ContactSection'
-import siteData from './data/site.json'
-import productsData from './data/products.json'
-import testimonialsData from './data/testimonials.json'
-import processData from './data/process.json'
-import type { ISiteContent, IProduct, ITestimonial, IProcessStep } from './types'
+import { useEffect, useState } from "react";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { motion, AnimatePresence } from "framer-motion";
+import { store } from "./store";
+import { Layout } from "./components/layout/Layout";
+import { CartDrawer } from "./components/shop/CartDrawer";
+import { HomePage } from "./components/pages/HomePage";
+import { ProductsPage } from "./components/pages/ProductsPage";
+import { AboutProcessPage } from "./components/pages/AboutProcessPage";
+import { ContactPage } from "./components/pages/ContactPage";
+import { CancelPage } from "./components/pages/CancelPage";
+import { SuccessPage } from "./components/pages/SuccessPage";
+import siteData from "./data/site.json";
+import productsData from "./data/products.json";
+import testimonialsData from "./data/testimonials.json";
+import processData from "./data/process.json";
+import type {
+  ISiteContent,
+  IProduct,
+  ITestimonial,
+  IProcessStep,
+} from "./types";
 
-type SiteContent = ISiteContent
-type Product = IProduct
-type Testimonial = ITestimonial
-type ProcessStep = IProcessStep
+type SiteContent = ISiteContent;
+type Product = IProduct;
+type Testimonial = ITestimonial;
+type ProcessStep = IProcessStep;
 
-const siteContent: SiteContent = siteData as SiteContent
-const products: Product[] = productsData as Product[]
-const testimonials: Testimonial[] = testimonialsData as Testimonial[]
-const processSteps: ProcessStep[] = processData as ProcessStep[]
+const siteContent: SiteContent = siteData as SiteContent;
+const products: Product[] = productsData as Product[];
+const testimonials: Testimonial[] = testimonialsData as Testimonial[];
+const processSteps: ProcessStep[] = processData as ProcessStep[];
 
 function AppContent() {
-  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.hash.split('?')[1] || '')
-    if (params.get('session') === 'success') {
-      setShowSuccessModal(true)
-      window.history.replaceState(null, '', window.location.pathname)
+    const params = new URLSearchParams(
+      window.location.hash.split("?")[1] || "",
+    );
+    if (params.get("session") === "success") {
+      setShowSuccessModal(true);
+      window.history.replaceState(null, "", window.location.pathname);
     }
-  }, [])
-
-  const handleNavigate = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+  }, []);
 
   return (
     <>
       <Layout siteContent={siteContent}>
-        <HeroSection content={siteContent} onNavigate={handleNavigate} />
-        <AboutSection content={siteContent} />
-        <ProcessSection steps={processSteps} content={siteContent} />
-        <ProductsSection products={products} content={siteContent} />
-        <TestimonialsSection testimonials={testimonials} content={siteContent} />
-        <ContactSection content={siteContent} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage content={siteContent} testimonials={testimonials} />
+            }
+          />
+          <Route
+            path="/products"
+            element={<ProductsPage content={siteContent} products={products} />}
+          />
+          <Route
+            path="/about"
+            element={
+              <AboutProcessPage content={siteContent} steps={processSteps} />
+            }
+          />
+          <Route
+            path="/contact"
+            element={<ContactPage content={siteContent} />}
+          />
+          <Route
+            path="/success"
+            element={<SuccessPage content={siteContent} />}
+          />
+          <Route
+            path="/cancel"
+            element={<CancelPage content={siteContent} />}
+          />
+        </Routes>
       </Layout>
       <CartDrawer />
 
@@ -71,7 +95,7 @@ function AppContent() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -98,7 +122,7 @@ function AppContent() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }
 
 function App() {
@@ -110,7 +134,7 @@ function App() {
         </Routes>
       </HashRouter>
     </Provider>
-  )
+  );
 }
 
-export default App
+export default App;

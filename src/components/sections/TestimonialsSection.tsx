@@ -1,15 +1,18 @@
-import { motion } from 'framer-motion'
-import { Star, Quote } from 'lucide-react'
-import { SectionHeader } from '../ui/SectionHeader'
-import type { ITestimonial, ISiteContent } from '../../types'
-import { formatDate } from '../../utils/formatters'
+import { motion } from "framer-motion";
+import { Star, Quote } from "lucide-react";
+import { SectionHeader } from "../ui/SectionHeader";
+import type { ITestimonial, ISiteContent } from "../../types";
+import { formatDate } from "../../utils/formatters";
 
 interface ITestimonialsSectionProps {
-  testimonials: ITestimonial[]
-  content: ISiteContent
+  testimonials: ITestimonial[];
+  content: ISiteContent;
 }
 
-export const TestimonialsSection = ({ testimonials, content }: ITestimonialsSectionProps) => {
+export const TestimonialsSection = ({
+  testimonials,
+  content,
+}: ITestimonialsSectionProps) => {
   return (
     <section id="testimonials" className="py-20 bg-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,8 +37,8 @@ export const TestimonialsSection = ({ testimonials, content }: ITestimonialsSect
                     key={i}
                     className={`w-4 h-4 ${
                       i < testimonial.rating
-                        ? 'fill-primary-500 text-primary-500'
-                        : 'fill-dark-200 text-dark-200'
+                        ? "fill-primary-500 text-primary-500"
+                        : "fill-dark-200 text-dark-200"
                     }`}
                   />
                 ))}
@@ -65,5 +68,5 @@ export const TestimonialsSection = ({ testimonials, content }: ITestimonialsSect
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

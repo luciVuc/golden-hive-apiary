@@ -1,25 +1,31 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { SectionHeader } from '../ui/SectionHeader'
-import { ProductCard } from '../shop/ProductCard'
-import type { IProduct, EProductCategory, ISiteContent } from '../../types'
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { SectionHeader } from "../ui/SectionHeader";
+import { ProductCard } from "../shop/ProductCard";
+import type { IProduct, EProductCategory, ISiteContent } from "../../types";
 
 interface IProductsSectionProps {
-  products: IProduct[]
-  content: ISiteContent
+  products: IProduct[];
+  content: ISiteContent;
 }
 
-export const ProductsSection = ({ products, content }: IProductsSectionProps) => {
-  const [activeCategory, setActiveCategory] = useState<EProductCategory | 'ALL'>('ALL')
+export const ProductsSection = ({
+  products,
+  content,
+}: IProductsSectionProps) => {
+  const [activeCategory, setActiveCategory] = useState<
+    EProductCategory | "ALL"
+  >("ALL");
 
-  const filteredProducts = activeCategory === 'ALL'
-    ? products
-    : products.filter(p => p.category === activeCategory)
+  const filteredProducts =
+    activeCategory === "ALL"
+      ? products
+      : products.filter((p) => p.category === activeCategory);
 
-  const categories = content.categories.map(cat => ({
+  const categories = content.categories.map((cat) => ({
     ...cat,
-    value: cat.id === 'ALL' ? 'ALL' : cat.id,
-  }))
+    value: cat.id === "ALL" ? "ALL" : cat.id,
+  }));
 
   return (
     <section id="products" className="py-20 bg-white">
@@ -30,14 +36,16 @@ export const ProductsSection = ({ products, content }: IProductsSectionProps) =>
         />
 
         <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {categories.map(category => (
+          {categories.map((category) => (
             <button
               key={category.id}
-              onClick={() => setActiveCategory(category.value as EProductCategory | 'ALL')}
+              onClick={() =>
+                setActiveCategory(category.value as EProductCategory | "ALL")
+              }
               className={`px-4 py-2 rounded-full font-body text-sm font-medium transition-all duration-200 ${
                 activeCategory === category.value
-                  ? 'bg-primary-500 text-white shadow-amber'
-                  : 'bg-primary-50 text-dark-600 hover:bg-primary-100'
+                  ? "bg-primary-500 text-white shadow-amber"
+                  : "bg-primary-50 text-dark-600 hover:bg-primary-100"
               }`}
             >
               {category.label}
@@ -50,7 +58,7 @@ export const ProductsSection = ({ products, content }: IProductsSectionProps) =>
           layout
         >
           <AnimatePresence mode="popLayout">
-            {filteredProducts.map(product => (
+            {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </AnimatePresence>
@@ -58,12 +66,10 @@ export const ProductsSection = ({ products, content }: IProductsSectionProps) =>
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
-            <p className="font-body text-dark-500">
-              {content.noProductsFound}
-            </p>
+            <p className="font-body text-dark-500">{content.noProductsFound}</p>
           </div>
         )}
       </div>
     </section>
-  )
-}
+  );
+};

@@ -1,16 +1,16 @@
-import { motion } from 'framer-motion'
-import { Plus, Minus, Trash2 } from 'lucide-react'
-import { useCart } from '../../hooks/useCart'
-import { formatPrice } from '../../utils/formatters'
-import type { ICartItem } from '../../types'
+import { motion } from "framer-motion";
+import { Plus, Minus, Trash2 } from "lucide-react";
+import { useCart } from "../../hooks/useCart";
+import { formatPrice } from "../../utils/formatters";
+import type { ICartItem } from "../../types";
 
 interface ICartItemProps {
-  item: ICartItem
+  item: ICartItem;
 }
 
 export const CartItem = ({ item }: ICartItemProps) => {
-  const { update, remove } = useCart()
-  const { product, quantity } = item
+  const { update, remove } = useCart();
+  const { product, quantity } = item;
 
   return (
     <motion.div
@@ -65,5 +65,5 @@ export const CartItem = ({ item }: ICartItemProps) => {
         <Trash2 className="w-4 h-4 text-red-500" />
       </button>
     </motion.div>
-  )
-}
+  );
+};

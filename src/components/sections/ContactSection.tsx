@@ -1,86 +1,98 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, AlertCircle } from 'lucide-react'
-import { SectionHeader } from '../ui/SectionHeader'
-import { Button } from '../ui/Button'
-import { LoadingSpinner } from '../ui/LoadingSpinner'
-import type { ISiteContent } from '../../types'
-import { FORMSPREE_FORM_ID } from '../../utils/constants'
-import { formatPhoneNumber } from '../../utils/formatters'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, Send, AlertCircle } from "lucide-react";
+import { SectionHeader } from "../ui/SectionHeader";
+import { Button } from "../ui/Button";
+import { LoadingSpinner } from "../ui/LoadingSpinner";
+import type { ISiteContent } from "../../types";
+import { FORMSPREE_FORM_ID } from "../../utils/constants";
+import { formatPhoneNumber } from "../../utils/formatters";
 
 interface IContactSectionProps {
-  content: ISiteContent
+  content: ISiteContent;
 }
 
 interface FormData {
-  name: string
-  email: string
-  subject: string
-  message: string
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
 }
 
-type FormStatus = 'idle' | 'loading' | 'success' | 'error'
+type FormStatus = "idle" | "loading" | "success" | "error";
 
 const subjectOptions = [
-  { value: 'general', label: 'General Inquiry' },
-  { value: 'order', label: 'Order Question' },
-  { value: 'wholesale', label: 'Wholesale Inquiry' },
-  { value: 'other', label: 'Other' },
-]
+  { value: "general", label: "General Inquiry" },
+  { value: "order", label: "Order Question" },
+  { value: "wholesale", label: "Wholesale Inquiry" },
+  { value: "other", label: "Other" },
+];
 
 export const ContactSection = ({ content }: IContactSectionProps) => {
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: 'general',
-    message: '',
-  })
-  const [status, setStatus] = useState<FormStatus>('idle')
-  const [errorMessage, setErrorMessage] = useState<string>('')
+    name: "",
+    email: "",
+    subject: "general",
+    message: "",
+  });
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!FORMSPREE_FORM_ID || FORMSPREE_FORM_ID === 'REPLACE_ME') {
-      setStatus('error')
-      setErrorMessage('Formspree is not configured. Please add VITE_FORMSPREE_FORM_ID to .env')
-      return
+    e.preventDefault();
+
+    if (!FORMSPREE_FORM_ID || FORMSPREE_FORM_ID === "REPLACE_ME") {
+      setStatus("error");
+      setErrorMessage(
+        "Formspree is not configured. Please add VITE_FORMSPREE_FORM_ID to .env",
+      );
+      return;
     }
 
-    setStatus('loading')
-    setErrorMessage('')
+    setStatus("loading");
+    setErrorMessage("");
 
     try {
-      const response = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `https://formspree.io/f/${FORMSPREE_FORM_ID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      })
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to send message')
+        throw new Error("Failed to send message");
       }
 
-      setStatus('success')
-      setFormData({ name: '', email: '', subject: 'general', message: '' })
+      setStatus("success");
+      setFormData({ name: "", email: "", subject: "general", message: "" });
     } catch {
-      setStatus('error')
-      setErrorMessage('Failed to send message. Please try again.')
+      setStatus("error");
+      setErrorMessage("Failed to send message. Please try again.");
     }
-  }
+  };
 
-  if (status === 'success') {
+  if (status === "success") {
     return (
       <section id="contact" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<SectionHeader title={content.contactTitle} subtitle={content.contactSubtitle} />
+          <SectionHeader
+            title={content.contactTitle}
+            subtitle={content.contactSubtitle}
+          />
 
           <motion.div
             className="max-w-lg mx-auto text-center py-12"
@@ -94,13 +106,16 @@ export const ContactSection = ({ content }: IContactSectionProps) => {
               Message Sent!
             </h3>
             <p className="font-body text-dark-600 mb-6">
-              Thank you for reaching out. We'll get back to you as soon as possible.
+              Thank you for reaching out. We'll get back to you as soon as
+              possible.
             </p>
-            <Button onClick={() => setStatus('idle')}>Send Another Message</Button>
+            <Button onClick={() => setStatus("idle")}>
+              Send Another Message
+            </Button>
           </motion.div>
         </div>
       </section>
-    )
+    );
   }
 
   return (
@@ -167,7 +182,7 @@ export const ContactSection = ({ content }: IContactSectionProps) => {
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all font-body"
                 >
-                  {subjectOptions.map(option => (
+                  {subjectOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
@@ -194,17 +209,29 @@ export const ContactSection = ({ content }: IContactSectionProps) => {
                 />
               </div>
 
-              <input type="text" name="_gotcha"style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+              <input
+                type="text"
+                name="_gotcha"
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
 
-              {status === 'error' && errorMessage && (
+              {status === "error" && errorMessage && (
                 <div className="flex items-center space-x-2 p-3 bg-red-50 rounded-lg">
                   <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                  <p className="font-body text-sm text-red-600">{errorMessage}</p>
+                  <p className="font-body text-sm text-red-600">
+                    {errorMessage}
+                  </p>
                 </div>
               )}
 
-              <Button type="submit" size="lg" disabled={status === 'loading'}>
-                {status === 'loading' ? <LoadingSpinner size="sm" /> : <Send className="w-5 h-5 mr-2" />}
+              <Button type="submit" size="lg" disabled={status === "loading"}>
+                {status === "loading" ? (
+                  <LoadingSpinner size="sm" />
+                ) : (
+                  <Send className="w-5 h-5 mr-2" />
+                )}
                 Send Message
               </Button>
             </form>
@@ -251,7 +278,9 @@ export const ContactSection = ({ content }: IContactSectionProps) => {
                   <MapPin className="w-6 h-6 text-primary-500 mt-0.5" />
                   <div>
                     <p className="font-body text-sm text-dark-500">Location</p>
-                    <p className="font-body text-dark-900">{content.location}</p>
+                    <p className="font-body text-dark-900">
+                      {content.location}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -260,14 +289,12 @@ export const ContactSection = ({ content }: IContactSectionProps) => {
             <div className="aspect-[4/3] bg-primary-50 rounded-2xl flex items-center justify-center">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-primary-400 mx-auto mb-3" />
-                <p className="font-body text-primary-700">
-                  [Map Placeholder]
-                </p>
+                <p className="font-body text-primary-700">[Map Placeholder]</p>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion'
-import { Home, Flower2, Wind, Shield, Award, ChevronRight } from 'lucide-react'
-import { SectionHeader } from '../ui/SectionHeader'
-import type { IProcessStep, ISiteContent } from '../../types'
+import { motion } from "framer-motion";
+import { Home, Flower2, Wind, Shield, Award, ChevronRight } from "lucide-react";
+import { SectionHeader } from "../ui/SectionHeader";
+import type { IProcessStep, ISiteContent } from "../../types";
 
 interface IProcessSectionProps {
-  steps: IProcessStep[]
-  content: ISiteContent
+  steps: IProcessStep[];
+  content: ISiteContent;
 }
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -14,7 +14,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Wind,
   Shield,
   Award,
-}
+};
 
 export const ProcessSection = ({ steps, content }: IProcessSectionProps) => {
   return (
@@ -30,7 +30,7 @@ export const ProcessSection = ({ steps, content }: IProcessSectionProps) => {
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {steps.map((processStep, index) => {
-              const IconComponent = iconMap[processStep.icon] || ChevronRight
+              const IconComponent = iconMap[processStep.icon] || ChevronRight;
 
               return (
                 <motion.div
@@ -63,7 +63,7 @@ export const ProcessSection = ({ steps, content }: IProcessSectionProps) => {
                     </p>
                   </div>
                 </motion.div>
-              )
+              );
             })}
           </div>
         </div>
@@ -71,7 +71,7 @@ export const ProcessSection = ({ steps, content }: IProcessSectionProps) => {
         <div className="mt-16 md:hidden">
           <div className="border-l-2 border-primary-200 ml-8">
             {steps.map((processStep, index) => {
-              const IconComponent = iconMap[processStep.icon] || ChevronRight
+              const IconComponent = iconMap[processStep.icon] || ChevronRight;
 
               return (
                 <motion.div
@@ -93,11 +93,11 @@ export const ProcessSection = ({ steps, content }: IProcessSectionProps) => {
                     {processStep.description}
                   </p>
                 </motion.div>
-              )
+              );
             })}
           </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

@@ -1,17 +1,20 @@
-import { Instagram, Facebook, Mail, Phone, MapPin } from 'lucide-react'
-import type { ISiteContent } from '../../types'
+import { Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import type { ISiteContent } from "../../types";
 
 interface IFooterProps {
-  content: ISiteContent
+  content: ISiteContent;
 }
 
 export const Footer = ({ content }: IFooterProps) => {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
-  const navLinks = content.navLinks.slice(1).map(link => ({
-    label: link.label,
-    href: `#${link.id}`,
-  }))
+  const navLinks = content.navLinks
+    .filter((link) => link.id !== "process" && link.id !== "testimonials")
+    .slice(1)
+    .map((link) => ({
+      label: link.label,
+      href: `#${link.id}`,
+    }));
 
   return (
     <footer className="bg-dark-900 text-white">
@@ -62,9 +65,11 @@ export const Footer = ({ content }: IFooterProps) => {
           </div>
 
           <div>
-            <h4 className="font-heading text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="font-heading text-lg font-semibold mb-4">
+              Quick Links
+            </h4>
             <ul className="space-y-2">
-              {navLinks.map(link => (
+              {navLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -78,7 +83,9 @@ export const Footer = ({ content }: IFooterProps) => {
           </div>
 
           <div>
-            <h4 className="font-heading text-lg font-semibold mb-4">Contact Us</h4>
+            <h4 className="font-heading text-lg font-semibold mb-4">
+              Contact Us
+            </h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <Mail className="w-5 h-5 text-primary-400 mt-0.5" />
@@ -100,7 +107,9 @@ export const Footer = ({ content }: IFooterProps) => {
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary-400 mt-0.5" />
-                <span className="font-body text-dark-300">{content.location}</span>
+                <span className="font-body text-dark-300">
+                  {content.location}
+                </span>
               </li>
             </ul>
           </div>
@@ -116,5 +125,5 @@ export const Footer = ({ content }: IFooterProps) => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
