@@ -9,7 +9,7 @@ interface IUseStripeCheckoutReturn {
 }
 
 const isSubscriptionProduct = (product: IProduct): boolean => {
-  return product.category === "SUBSCRIPTIONS"; // || product.category === 'Subscriptions'
+  return product.category?.toUpperCase() === "SUBSCRIPTIONS";
 };
 
 export const useStripeCheckout = (): IUseStripeCheckoutReturn => {
