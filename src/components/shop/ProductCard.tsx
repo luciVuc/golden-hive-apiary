@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Badge } from "../ui/Badge";
@@ -29,19 +30,21 @@ export const ProductCard = ({ product }: IProductCardProps) => {
       whileHover={{ y: -5 }}
     >
       <div className="aspect-[4/3] bg-primary-50 relative overflow-hidden">
-        {product.imageUrls && product.imageUrls[0] ? (
-          <img
-            src={product.imageUrls[0]}
-            alt={product.name}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="text-center">
-              <span className="text-5xl">🍯</span>
+        <Link to={`/products/${product.slug}`}>
+          {product.imageUrls && product.imageUrls[0] ? (
+            <img
+              src={product.imageUrls[0]}
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="text-center">
+                <span className="text-5xl">🍯</span>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </Link>
         {product.featured && (
           <Badge variant="featured" className="absolute top-3 left-3">
             Featured
@@ -57,7 +60,12 @@ export const ProductCard = ({ product }: IProductCardProps) => {
       <div className="p-4">
         <div className="flex items-start justify-between mb-2">
           <h3 className="font-heading text-lg font-semibold text-dark-900">
-            {product.name}
+            <Link
+              to={`/products/${product.slug}`}
+              className="hover:text-primary-600 transition-colors"
+            >
+              {product.name}
+            </Link>
           </h3>
           <span className="font-body text-sm text-dark-500">
             {product.weight}

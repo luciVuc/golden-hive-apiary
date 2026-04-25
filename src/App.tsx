@@ -11,6 +11,7 @@ import { AboutProcessPage } from "./components/pages/AboutProcessPage";
 import { ContactPage } from "./components/pages/ContactPage";
 import { CancelPage } from "./components/pages/CancelPage";
 import { SuccessPage } from "./components/pages/SuccessPage";
+import { ProductDetailPage } from "./components/pages/ProductDetailPage";
 import siteData from "./data/site.json";
 import productsData from "./data/products.json";
 import testimonialsData from "./data/testimonials.json";
@@ -69,6 +70,7 @@ function AppContent() {
             path="/contact"
             element={<ContactPage content={siteContent} />}
           />
+          <Route path="/products/:slug" element={<ProductDetailPage />} />
           <Route
             path="/success"
             element={<SuccessPage content={siteContent} />}
