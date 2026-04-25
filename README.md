@@ -1,8 +1,8 @@
-# Golden Hive Apiaries
+# Golden Hive Apiary
 
 A beautiful React + TypeScript e-commerce website and marketing site for a small beekeeping business. Built with Vite, Redux Toolkit, Tailwind CSS, and deployed to GitHub Pages.
 
-![Golden Hive Apiaries Screenshot](https://via.placeholder.com/1200x630.png?text=Golden+Hive+Apiaries)
+![Golden Hive Apiary Screenshot](https://via.placeholder.com/1200x630.png?text=Golden+Hive+Apiary)
 
 ## Tech Stack
 
@@ -222,4 +222,3 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 - Built with [Vite](https://vitejs.dev)
 - Icons by [Lucide](https://lucide.dev)
-- Design inspired by Vermont honey aesthetics

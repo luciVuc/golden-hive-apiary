@@ -179,7 +179,6 @@ SiteContent {
 ### src/data/site.json
 
 Populate with a fictional but realistic beekeeping business named
-"Golden Hive Apiaries" based in Vermont. Write real, warm,
 marketing-quality copy for all text fields.
 
 ### src/data/products.json
@@ -301,7 +300,7 @@ IntersectionObserver (useScrollSpy hook).
 - Two-column layout (text left, image right)
 - Business story text from site.json (aboutText array = paragraphs)
 - A row of 3 icon+stat highlights: e.g., "15 Years Experience",
-  "100% Raw & Natural", "Vermont Proud"
+  "100% Raw & Natural", "California Proud"
 
 ### 4. ProcessSection
 
@@ -355,7 +354,7 @@ IntersectionObserver (useScrollSpy hook).
 - Nav links repeated
 - Social media links from site.json
 - Copyright notice with current year (dynamic)
-- "Built with ❤️ in Vermont" tagline
+- "Built with ❤️ in California" tagline
 
 ---
 
