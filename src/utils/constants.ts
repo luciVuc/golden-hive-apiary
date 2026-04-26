@@ -4,7 +4,7 @@ export const STRIPE_PUBLISHABLE_KEY =
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "";
 export const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "";
 
-export const GITHUB_PAGES_BASE = "/";
+export const GITHUB_PAGES_BASE = "/cs-regus-apiary/";
 
 export const PRODUCTS_PER_PAGE = 12;
 
